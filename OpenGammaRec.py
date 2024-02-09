@@ -42,7 +42,7 @@ def readCounts(serial_port, baud_rate=115200):
         outPath = os.path.join(outDir, outName)
         fLog = open(outPath, 'w')
         stime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        fLog.write("# Open Gamma count start: %s" % stime)
+        fLog.write("# Open Gamma count start: %s\n" % stime)
         
         while True:
             line = ser.readline().decode('utf-8').strip()
@@ -64,14 +64,14 @@ def readCounts(serial_port, baud_rate=115200):
             if (readings % 60 == 0):                
                 time = datetime.datetime.now().strftime("%Y-%m-%d,%H:%M:%S")
                 print("%s, %d" % (time,totalCounts))
-                fLog.write("%d" % totalCounts)
+                fLog.write("%d\n" % totalCounts)
                 totalCounts = 0
                     
             if (readings % 1800 == 0):                                    
                 showHist(eHist)               # show current accumulation
                 eHist = np.zeros((histSize))  # reset to zero
                 stime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                fLog.write("# time: %s" % stime)
+                fLog.write("# time: %s\n" % stime)
                 fLog.flush()
 
     except Exception as e:
